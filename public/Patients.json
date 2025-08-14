@@ -1,0 +1,30 @@
+[
+  {
+    "img": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+    "name": "Robert Johnson",
+    "rating": 5,
+    "testimonial": "Dr. Smith’s cardiology team saved my life after my heart attack. Their quick response and advanced treatment gave me a second chance. Forever grateful!",
+    "treatment": "Cardiac Emergency Care"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+    "name": "Maria Garcia",
+    "rating": 4,
+    "testimonial": "The pediatric team was wonderful with my daughter. They explained everything in simple terms and made her feel safe during her asthma treatment.",
+    "treatment": "Pediatric Asthma Management"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+    "name": "James Wilson",
+    "rating": 5,
+    "testimonial": "After years of chronic migraines, the neurologist identified the root cause and tailored a treatment plan. I’ve been pain-free for 6 months now!",
+    "treatment": "Neurological Disorder Treatment"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80",
+    "name": "Sarah Chen",
+    "rating": 5,
+    "testimonial": "My knee replacement surgery went smoothly, and the post-op physiotherapy plan got me back on my feet faster than I expected. Highly recommend!",
+    "treatment": "Orthopedic Surgery & Rehabilitation"
+  }
+]
