@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import Doctorsbanner from '../../Section/DoctorsViews/Doctorsbanner';
+
 const DoctorsViews = () => {
     const { id } = useParams();
     const [doctor, setDoctor] = useState(null);
@@ -51,20 +53,39 @@ const DoctorsViews = () => {
     }
 
     return (
-        <div className="max-w-3xl mx-auto mt-10 p-4 shadow-lg bg-white">
-            <figure>
+       <>
+       <div>
+        <Doctorsbanner />
+       </div>
+
+       <div>
+        <div className="max-w-3xl mx-auto mt-10 p-4 shadow-xl bg-white rounded-xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-black rounded-xl shadow-lg">
+              <figure>
                 <img
                     src={doctor.img_url || "https://via.placeholder.com/300"}
                     alt={doctor.name || "Doctor"}
-                    className="w-full h-96 object-cover"
+                    className="w-full h-64 "
                 />
-            </figure>
-            <h1 className="text-3xl font-bold mt-4">{doctor.name}</h1>
-            <h3 className="text-xl text-gray-600">{doctor.designation}</h3>
-            <div className="flex mt-2">
-                {[...Array(Math.round(doctor.rating || 0))].map((_, i) => (
-                    <FaStar key={i} className="text-yellow-400" />
-                ))}
+              </figure>
+              <div>
+                <h1 className="text-3xl font-bold mt-4">{doctor.name}</h1>
+                <h3 className="text-xl">{doctor.designation}</h3>
+                <div className="flex mt-2">
+                    {[...Array(Math.round(doctor.rating || 0))].map((_, i) => (
+                        <FaStar key={i} className="text-yellow-400" />
+                    ))}
+                </div>
+                <h3 className="mt-2">{doctor.location}</h3>
+              </div>
+          </div>
+
+          {/* Info Section */}
+          <div className="text-gray-700 mt-10 p-6 bg-gray-50 rounded-lg shadow-lg">
+            <div className="mb-4">
+              <button className="px-4 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700">
+                Overview
+              </button>
             </div>
             <p className="mt-4"><strong>Location:</strong> {doctor.location}</p>
             <p><strong>Available Time:</strong> {doctor.available_time}</p>
@@ -75,9 +96,11 @@ const DoctorsViews = () => {
             <p><strong>Work Experience:</strong> {doctor.work_experience}</p>
             <p><strong>Services:</strong> {Array.isArray(doctor.services) ? doctor.services.join(', ') : doctor.services}</p>
             <p><strong>Specializations:</strong> {Array.isArray(doctor.specializations) ? doctor.specializations.join(', ') : doctor.specializations}</p>
+          </div>
         </div>
+       </div>
+       </>
     );
 };
 
 export default DoctorsViews;
-

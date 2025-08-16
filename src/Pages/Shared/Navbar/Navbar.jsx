@@ -10,7 +10,7 @@ const Navbar = () => {
   </>;
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className=" navbar  fixed top-0 w-full z-50 text-white">
       <div className="navbar-start">
         <img className='w-18' src={img4} alt="" />
         <a className="btn btn-ghost text-  text-2xl hover:bg-orange-400">Doc House</a>
