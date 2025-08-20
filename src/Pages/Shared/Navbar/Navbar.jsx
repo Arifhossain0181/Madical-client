@@ -1,7 +1,16 @@
 import React from 'react';
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import img4 from '../../../assets/img/logo.jpg'
 const Navbar = () => {
+  const location = useLocation()
+   if (location.pathname === "/register" || location.pathname === '/login') {
+    return null;
+  }
+ 
+
+
+
   const links = <>
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/about'>About</NavLink></li>
