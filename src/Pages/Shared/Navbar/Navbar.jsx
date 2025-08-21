@@ -2,7 +2,15 @@ import React from 'react';
 import { NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import img4 from '../../../assets/img/logo.jpg'
+import { useContext } from 'react';
+import { AuthContext } from '../../../context/AuthContext';
 const Navbar = () => {
+  const {user , logout} = useContext(AuthContext);
+  const handleLogout = () => {
+    logout()
+  .then(() =>{})
+  .catch(error => console.log(error.message));
+  }
   const location = useLocation()
    if (location.pathname === "/register" || location.pathname === '/login') {
     return null;
@@ -15,7 +23,19 @@ const Navbar = () => {
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/about'>About</NavLink></li>
     <li><NavLink to='/appointment'>Appointment</NavLink></li>
+    <li><NavLink to='/secret'>Secret</NavLink></li>
+    {
+      user ?
+      <>
+      <h2>{user?.displayName}</h2>
+      <button onClick={handleLogout} className='btn btn-ghost'>logout</button>
+
+      </> :
+      <>
     <li><NavLink to='/login'>Login</NavLink></li>
+
+      </>
+    }
   </>;
 
   return (

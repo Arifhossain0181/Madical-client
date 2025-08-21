@@ -1,6 +1,13 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { getAuth, onAuthStateChanged,createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import app from '../firebase/firebse.config.js';
+import React, { createContext, useState, useEffect } from "react";
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile // added
+} from "firebase/auth";
+import app from "../firebase/firebse.config.js";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -16,28 +23,35 @@ const AuthProvider = ({ children }) => {
     });
     return () => unsubscribe();
   }, []);
-   const createUser = (email, password) => {
-          setLoading(true);
-          return createUserWithEmailAndPassword(auth, email, password);
-      };
-  
-      const signIn = (email, password) => {
-          setLoading(true);
-          return signInWithEmailAndPassword(auth, email, password);
-      };
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
+  const signIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   const logout = () => {
     setLoading(true);
     return signOut(auth);
   };
-const authInfo = {
-  user,
-  createUser, signIn,logout,// এটা যোগ করতে হবে
-};
+  // Add uPdateuser to update displayName
+  const uPdateuser = (name) => {
+    if (!auth.currentUser) return Promise.reject("No user");
+    return updateProfile(auth.currentUser, { displayName: name });
+  };
+
+  const authInfo = {
+    user,
+    createUser,
+    signIn,
+    logout,
+    uPdateuser // added
+  };
   return (
-    <AuthContext.Provider value={authInfo}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 

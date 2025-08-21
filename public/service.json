@@ -1,0 +1,385 @@
+[
+  /* ---------------- Teeth Orthodontics ---------------- */
+  {
+    "id": 1,
+    "category": "Teeth Orthodontics",
+    "service": "Braces Consultation",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["09:00 AM", "10:30 AM", "01:00 PM", "03:30 PM"]
+  },
+  {
+    "id": 2,
+    "category": "Teeth Orthodontics",
+    "service": "Braces Adjustment",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["10:00 AM", "12:00 PM", "02:00 PM"]
+  },
+  {
+    "id": 3,
+    "category": "Teeth Orthodontics",
+    "service": "Retainer Checkup",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["09:30 AM", "11:00 AM", "04:00 PM"]
+  },
+  {
+    "id": 4,
+    "category": "Teeth Orthodontics",
+    "service": "Invisalign Fitting",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["12:30 PM", "02:30 PM", "05:00 PM"]
+  },
+  {
+    "id": 5,
+    "category": "Teeth Orthodontics",
+    "service": "Metal Braces",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["11:30 AM", "01:30 PM", "03:00 PM"]
+  },
+  {
+    "id": 6,
+    "category": "Teeth Orthodontics",
+    "service": "Ceramic Braces",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["10:00 AM", "12:30 PM", "04:30 PM"]
+  },
+  {
+    "id": 7,
+    "category": "Teeth Orthodontics",
+    "service": "Lingual Braces",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["09:00 AM", "11:00 AM", "01:00 PM"]
+  },
+  {
+    "id": 8,
+    "category": "Teeth Orthodontics",
+    "service": "Follow-up Consultation",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["02:00 PM", "04:00 PM", "05:30 PM"]
+  },
+  {
+    "id": 9,
+    "category": "Teeth Orthodontics",
+    "service": "Ortho X-ray Check",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["10:30 AM", "12:30 PM", "03:30 PM"]
+  },
+  {
+    "id": 10,
+    "category": "Teeth Orthodontics",
+    "service": "Final Smile Correction",
+    "img": "https://cdn-icons-png.flaticon.com/512/3105/3105825.png",
+    "availableSlots": ["09:00 AM", "11:30 AM", "02:30 PM"]
+  },
+
+  /* ---------------- Cosmetic Dentistry ---------------- */
+  {
+    "id": 11,
+    "category": "Cosmetic Dentistry",
+    "service": "Teeth Whitening",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["09:00 AM", "10:00 AM", "01:00 PM"]
+  },
+  {
+    "id": 12,
+    "category": "Cosmetic Dentistry",
+    "service": "Smile Design",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["11:00 AM", "01:30 PM", "04:00 PM"]
+  },
+  {
+    "id": 13,
+    "category": "Cosmetic Dentistry",
+    "service": "Veneers",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["10:30 AM", "12:00 PM", "03:00 PM"]
+  },
+  {
+    "id": 14,
+    "category": "Cosmetic Dentistry",
+    "service": "Bonding",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "02:30 PM"]
+  },
+  {
+    "id": 15,
+    "category": "Cosmetic Dentistry",
+    "service": "Gum Contouring",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["12:30 PM", "03:00 PM", "05:00 PM"]
+  },
+  {
+    "id": 16,
+    "category": "Cosmetic Dentistry",
+    "service": "Crown Placement",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["09:00 AM", "11:00 AM", "01:00 PM"]
+  },
+  {
+    "id": 17,
+    "category": "Cosmetic Dentistry",
+    "service": "Dental Implants",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["10:00 AM", "12:00 PM", "03:00 PM"]
+  },
+  {
+    "id": 18,
+    "category": "Cosmetic Dentistry",
+    "service": "Tooth Shaping",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["02:00 PM", "04:00 PM"]
+  },
+  {
+    "id": 19,
+    "category": "Cosmetic Dentistry",
+    "service": "Dental Jewelry",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["01:30 PM", "03:30 PM"]
+  },
+  {
+    "id": 20,
+    "category": "Cosmetic Dentistry",
+    "service": "Porcelain Crowns",
+    "img": "https://cdn-icons-png.flaticon.com/512/3004/3004613.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "02:30 PM"]
+  },
+
+  /* ---------------- Teeth Cleaning ---------------- */
+  {
+    "id": 21,
+    "category": "Teeth Cleaning",
+    "service": "Regular Cleaning",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["09:00 AM", "10:30 AM", "12:00 PM"]
+  },
+  {
+    "id": 22,
+    "category": "Teeth Cleaning",
+    "service": "Deep Cleaning",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["11:00 AM", "01:00 PM", "03:30 PM"]
+  },
+  {
+    "id": 23,
+    "category": "Teeth Cleaning",
+    "service": "Polishing",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["10:00 AM", "12:30 PM", "04:00 PM"]
+  },
+  {
+    "id": 24,
+    "category": "Teeth Cleaning",
+    "service": "Scaling",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "02:00 PM"]
+  },
+  {
+    "id": 25,
+    "category": "Teeth Cleaning",
+    "service": "Plaque Removal",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["12:00 PM", "03:00 PM", "05:00 PM"]
+  },
+  {
+    "id": 26,
+    "category": "Teeth Cleaning",
+    "service": "Tartar Removal",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["10:30 AM", "01:30 PM", "04:30 PM"]
+  },
+  {
+    "id": 27,
+    "category": "Teeth Cleaning",
+    "service": "Preventive Cleaning",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["09:00 AM", "11:00 AM", "02:00 PM"]
+  },
+  {
+    "id": 28,
+    "category": "Teeth Cleaning",
+    "service": "Laser Cleaning",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["12:30 PM", "03:30 PM"]
+  },
+  {
+    "id": 29,
+    "category": "Teeth Cleaning",
+    "service": "Stain Removal",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["01:00 PM", "04:00 PM"]
+  },
+  {
+    "id": 30,
+    "category": "Teeth Cleaning",
+    "service": "Oral Hygiene Session",
+    "img": "https://cdn-icons-png.flaticon.com/512/3159/3159310.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "02:30 PM"]
+  },
+
+  /* ---------------- Cavity Protection ---------------- */
+  {
+    "id": 31,
+    "category": "Cavity Protection",
+    "service": "Fluoride Treatment",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["09:00 AM", "11:00 AM", "01:00 PM"]
+  },
+  {
+    "id": 32,
+    "category": "Cavity Protection",
+    "service": "Dental Sealants",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["10:30 AM", "12:30 PM", "03:00 PM"]
+  },
+  {
+    "id": 33,
+    "category": "Cavity Protection",
+    "service": "Cavity Filling",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["09:30 AM", "01:00 PM", "04:00 PM"]
+  },
+  {
+    "id": 34,
+    "category": "Cavity Protection",
+    "service": "Preventive Checkup",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["11:30 AM", "02:00 PM", "05:00 PM"]
+  },
+  {
+    "id": 35,
+    "category": "Cavity Protection",
+    "service": "X-Ray Diagnosis",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["09:00 AM", "12:00 PM", "02:30 PM"]
+  },
+  {
+    "id": 36,
+    "category": "Cavity Protection",
+    "service": "Antibacterial Gel",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["10:00 AM", "01:30 PM", "04:30 PM"]
+  },
+  {
+    "id": 37,
+    "category": "Cavity Protection",
+    "service": "Root Protection",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "03:30 PM"]
+  },
+  {
+    "id": 38,
+    "category": "Cavity Protection",
+    "service": "Early Decay Repair",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["12:30 PM", "02:30 PM", "05:30 PM"]
+  },
+  {
+    "id": 39,
+    "category": "Cavity Protection",
+    "service": "Protective Coating",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["11:00 AM", "01:00 PM", "03:00 PM"]
+  },
+  {
+    "id": 40,
+    "category": "Cavity Protection",
+    "service": "Kids Cavity Prevention",
+    "img": "https://cdn-icons-png.flaticon.com/512/3063/3063826.png",
+    "availableSlots": ["10:00 AM", "12:30 PM", "04:00 PM"]
+  },
+
+  /* ---------------- Pediatric Dental ---------------- */
+  {
+    "id": 41,
+    "category": "Pediatric Dental",
+    "service": "Milk Teeth Care",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["09:00 AM", "10:30 AM", "12:00 PM"]
+  },
+  {
+    "id": 42,
+    "category": "Pediatric Dental",
+    "service": "Kids Dental Check",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["11:00 AM", "01:00 PM", "03:00 PM"]
+  },
+  {
+    "id": 43,
+    "category": "Pediatric Dental",
+    "service": "Fluoride for Kids",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["09:30 AM", "12:30 PM", "02:30 PM"]
+  },
+  {
+    "id": 44,
+    "category": "Pediatric Dental",
+    "service": "Sealants for Kids",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["10:00 AM", "01:30 PM", "04:00 PM"]
+  },
+  {
+    "id": 45,
+    "category": "Pediatric Dental",
+    "service": "Early Braces Check",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["11:30 AM", "02:00 PM", "05:00 PM"]
+  },
+  {
+    "id": 46,
+    "category": "Pediatric Dental",
+    "service": "Cavity Prevention Kids",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["09:00 AM", "12:00 PM", "02:30 PM"]
+  },
+  {
+    "id": 47,
+    "category": "Pediatric Dental",
+    "service": "Baby Teeth Cleaning",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["10:00 AM", "01:30 PM", "04:30 PM"]
+  },
+  {
+    "id": 48,
+    "category": "Pediatric Dental",
+    "service": "Oral Habit Counseling",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["09:30 AM", "11:30 AM", "03:30 PM"]
+  },
+  {
+    "id": 49,
+    "category": "Pediatric Dental",
+    "service": "Tooth Extraction Kids",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["12:30 PM", "02:30 PM", "05:30 PM"]
+  },
+  {
+    "id": 50,
+    "category": "Pediatric Dental",
+    "service": "Kids Dental X-ray",
+    "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+    "availableSlots": ["11:00 AM", "01:00 PM", "03:00 PM"]
+  },
+
+  /* ---------------- Oral Surgery ---------------- */
+   {
+      "id": 51,
+      "category": "Oral Surgery",
+      "service": "Wisdom Tooth Removal",
+      "img": "https://cdn-icons-png.flaticon.com/512/3050/3050525.png",
+      "availableSlots": [
+         "11:00 AM",
+         "01:00 PM",
+         "03:00 PM"
+      ]
+   },
+   {
+      "id": 52,
+      "category": "Oral Surgery",
+      "service": "Jaw Surgery",
+      "img": "https://cdn-icons-png.flaticon.com/512/3050/3050976.png",
+      "availableSlots": [
+         "09:00 AM",
+         "11:00 AM",
+         "02:00 PM"
+      ]
+   }
+  ]

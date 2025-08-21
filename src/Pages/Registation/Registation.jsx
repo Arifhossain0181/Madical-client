@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Registration = () => {
 
-    const {user, createUser} = useContext(AuthContext);
+    const {user, createUser ,uPdateuser} = useContext(AuthContext);
   const handleRegister = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
@@ -20,6 +20,13 @@ const Registration = () => {
     .then(result=>{
         console.log(result.user);
         alert("Account Created Successfully!");
+        uPdateuser(name)
+        .then(() =>{
+          console.log("User updated successfully");
+        })
+        .catch(error =>{
+          console.log(error.message);
+        })
         e.target.reset();
     })
     .catch(error =>{
@@ -28,7 +35,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[700px] mt-10">
+    <div className="flex flex-col md:flex-row h-[700px] mt-10 text-black">
       {/* Image */}
       <div className="md:w-1/2 w-full h-64 md:h-auto">
         <img

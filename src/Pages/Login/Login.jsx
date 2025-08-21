@@ -1,52 +1,58 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import img from "../../assets/img/Screenshot 2025-08-20 173715.png";
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-import { useEffect } from 'react';
-import { useRef ,useState} from 'react';
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  validateCaptcha,
+} from "react-simple-captcha";
 import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const Login = () => {
-    const caPtchaRef = useRef(null);
-    const [disabled,setdisabled] = useState(false);
-  const {user ,signIn} = useContext(AuthContext);
-    useEffect(() => {
-        loadCaptchaEnginge(6); // Load captcha with 6 characters
-    }, []);
+  const [disabled, setDisabled] = useState(true); // Start with disabled
+  const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"; // Redirect after login
+
+  useEffect(() => {
+    loadCaptchaEnginge(6); // Load captcha with 6 characters
+  }, []);
+
   // Handle form submit
   const handleLogin = (e) => {
     e.preventDefault();
-    const email = e.target.email.value; // name attribute দিয়ে access
+    const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log({ email, password });
-    alert("Login Successful!");
     signIn(email, password)
-    .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
+      .then((result) => {
+        const loggedUser  = result.user;
+        console.log(loggedUser );
         alert("Login Successful!");
-        e.target.reset();})
-    .catch((error) => {
+        e.target.reset();
+        setDisabled(true); // Reset disabled state after successful login
+        navigate(from, { replace: true }); // Navigate to the previous page or home
+      })
+      
+      .catch((error) => {
         console.error("Login failed:", error);
         alert("Login failed: " + error.message);
-    }    )
-
+      });
   };
-  const handlevalidate = e =>{
-    const value = caPtchaRef.current.value;
-    console.log(value);
+
+  const handleValidate = (e) => {
+    const value = e.target.value;
     if (validateCaptcha(value)) {
-        setdisabled(true);
-  }
-  else{
-    setdisabled(false);
-  }
-}
+      setDisabled(false); // Enable the button if captcha is valid
+    } else {
+      setDisabled(true); // Disable the button if captcha is invalid
+    }
+  };
 
   return (
-    <div className="flex flex-col md:flex-row h-[700px] mt-10">
+    <div className="flex flex-col md:flex-row h-[700px] mt-10 text-black">
       {/* Image Section */}
       <div className="md:w-1/2 w-full h-64 md:h-auto">
         <img src={img} alt="Login" className="w-full h-full object-cover" />
@@ -65,7 +71,7 @@ const Login = () => {
               <label className="label">Email</label>
               <input
                 type="email"
-                name="email" // added name for form handling
+                name="email"
                 placeholder="Email"
                 className="input w-full bg-gray-200"
                 required
@@ -75,35 +81,40 @@ const Login = () => {
               <label className="label">Password</label>
               <input
                 type="password"
-                name="password" // added name for form handling
+                name="password"
                 placeholder="Password"
                 className="input w-full bg-gray-200"
                 required
               />
             </div>
-            {/** caPtcha */}
+            {/** Captcha */}
             <div>
-              <label className="label">    <LoadCanvasTemplate /></label>
+              <label className="label">
+                <LoadCanvasTemplate />
+              </label>
               <input
-               ref={caPtchaRef}
+                onBlur={handleValidate}
                 type="text"
-                name="text" // added name for form handling
+                name="text"
                 placeholder="captcha"
                 className="input w-full bg-gray-200"
                 required
               />
-              <button onClick={handlevalidate} className="btn btn-outline btn-xs w-full">validate</button>
             </div>
 
             <div className="text-right">
-              <Link to="/forgot-password" className="link link-hover text-blue-600">
+              <Link
+                to="/forgot-password"
+                className="link link-hover text-blue-600"
+              >
                 Forgot password?
               </Link>
             </div>
 
             <button
               type="submit"
-              className="btn w-full bg-amber-600 border-0 mt-4"
+              className={`btn w-full bg-amber-600 border-0 mt-4 ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+              disabled={disabled} // Disable button based on captcha validation
             >
               Login
             </button>
@@ -112,7 +123,10 @@ const Login = () => {
           {/* Register link */}
           <p className="text-center mt-4">
             Don't have an account?{" "}
-            <Link disabled={disabled} to="/register" className="text-amber-600 font-bold">
+            <Link
+              to="/register"
+              className="text-amber-600 font-bold"
+            >
               Register
             </Link>
           </p>
