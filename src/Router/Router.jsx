@@ -10,6 +10,8 @@ import Privateroutes from './Privateroutes'
 import Secret from '../Pages/Shared/Secret/Secret'
 import DoctorsViews from '../Pages/Shared/Section/DoctorsViews/DoctorsViews'
 import APPointment from '../Pages/APPointment/APPointment.jsx';
+import Dashboard from '../Dashboard/Dashboard.jsx';
+import User from '../../src/Pages/APPointment/User.jsx'
 import Section2serverID from '../Pages/APPointment/Section2serverID.jsx';
 const router = createBrowserRouter([
   {
@@ -38,9 +40,16 @@ const router = createBrowserRouter([
         {
           path:'/services/:id',
           element:<Privateroutes><Section2serverID></Section2serverID></Privateroutes>
+        },{
+          path:'/user',
+          element:<Privateroutes><User></User></Privateroutes>
         }
     ]
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>
+  }
 ]);
 
 export default router;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import img from '../../assets/img/erik-mclean-AW7p7dXwG5U-unsplash.jpg';
 import { Link } from 'react-router-dom';
+import "cally";
 const Section1 = () => {
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -18,7 +19,7 @@ const Section1 = () => {
   }, []);
 
   return (
-    <div className='bg-gray-100 min-h-screen text-black'>
+    <div className='bg-gray-100 min-h-screen py-10'>
       {/* Top Section */}
       <div className='w-[900px] h-[355px] mx-auto mt-10 bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6'>
         <div>
@@ -36,7 +37,7 @@ const Section1 = () => {
       </div>
 
       {/* Categories */}
-      <div className='mt-10'>
+      <div className='mt-10 text-black'>
         <h1 className='text-3xl font-bold text-center mb-6'>Please select a service</h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {categories.map((cat, index) => (
