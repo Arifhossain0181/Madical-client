@@ -3,12 +3,21 @@ import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useLocation } from "react-router-dom";
+import axiossecure from "../../Hook/Axios";
+import axios from "axios";
+import Axios from "../../Hook/Axios";
+
 const Section2serverID = () => {
+  
   const { id } = useParams();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const {user} = useContext(AuthContext)
   const navigate = useNavigate();
+  const location = useLocation();
+  const axiossecure = Axios()
 
   // modal state
   const [selectedService, setSelectedService] = useState(null);
@@ -34,10 +43,64 @@ const Section2serverID = () => {
       phone: form.phone.value,
       email: form.email.value,
     };
-    console.log("Booking Data:", bookingData);
-    alert("Appointment submitted!");
-    setSelectedService(null); 
-    navigate('/user')// close modal after submit
+    if(user && user?.email  ){
+      //todo 
+     const mucartitem = {
+       serviceId: selectedService._id || selectedService.id,  // use _id to match backend
+       price: selectedService.price,
+       email: user?.email,
+       name: selectedService.service,
+       bookslot:form.time.value,// service name/title
+       phone : form.phone.value,
+       date: form.date.value,
+     };
+        axiossecure.post('/mycart',mucartitem )
+      .then(res => {
+        console.log(res.data)
+        if(res.data.insertedId){
+          Swal.fire({
+            title: "Appointment Booked Successfully",
+            showClass: {
+              popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+            },
+            hideClass: {
+              popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+            },
+          });
+          setSelectedService(null); 
+          navigate('/user')// close modal after submit
+        }
+      })
+    }
+    else{
+      Swal.fire({
+  title: "You are not logged in",
+  text: "Please log in to book an appointment.",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, take me to login!",
+}).then((result) => {
+  if (result.isConfirmed) {
+   //send to the login Page
+   navigate('/login' ,{state: {from:location}})
+  }
+});
+    }
+     
+    //console.log("Booking Data:", bookingData ,user?.email);
+    //alert("Appointment submitted!");
+    //setSelectedService(null); 
+    //navigate('/user')// close modal after submit
   };
 
   if (loading) return <p className="text-center mt-10">Loading...</p>;
@@ -155,6 +218,7 @@ const Section2serverID = () => {
     type="submit"
     className="w-full bg-green-800 text-white py-2 rounded"
   >
+    
        Submit
   </button>
 </form>

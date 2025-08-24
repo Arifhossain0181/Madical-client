@@ -35,11 +35,11 @@ const router = createBrowserRouter([
           element :<Privateroutes><Secret /></Privateroutes>
         },{
           path:'/appointment',
-          element:<Privateroutes><APPointment /></Privateroutes>
+          element:<APPointment />
         },
         {
           path:'/services/:id',
-          element:<Privateroutes><Section2serverID></Section2serverID></Privateroutes>
+          element:<Section2serverID></Section2serverID>
         },{
           path:'/user',
           element:<Privateroutes><User></User></Privateroutes>
