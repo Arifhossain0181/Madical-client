@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Usecart from "../../Hook/Usecart";
-import axiossecure from "../../Hook/Axios"; 
+import asxiossecure from "../../Hook/Axios";
 import Axios from "../../Hook/Axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 const User = () => {
   const { user } = useContext(AuthContext); // Logged-in user
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart] = Usecart();
-  const  axiossecure= Axios();
+  const asxiossecure = Axios();
 
   useEffect(() => {
     // Fetch user-specific bookings from backend
@@ -27,28 +28,27 @@ const User = () => {
 
   //UPDate
   const handleupdate = (_id) => {
-  axiossecure.patch(`/mycart/${_id}`, { status: "confirm" })
-    .then(res => {
-      if (res.data.modifiedCount > 0) {
-        // UI তে যেটা update করব
-        const updatedBookings = bookings.map(booking =>
-          booking._id === _id ? { ...booking, status: "confirm" } : booking
-        );
-        setBookings(updatedBookings);
+   asxiossecure
+      .patch(`/mycart/${_id}`, { status: "confirm" })
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          // UI তে যেটা update করব
+          const updatedBookings = bookings.map((booking) =>
+            booking._id === _id ? { ...booking, status: "confirm" } : booking
+          );
+          setBookings(updatedBookings);
 
-        Swal.fire({
-          title: "Updated!",
-          text: "Booking has been confirmed.",
-          icon: "success"
-        });
-      }
-    })
-    .catch(err => console.error("Update error:", err));
-};
+          Swal.fire({
+            title: "Updated!",
+            text: "Booking has been confirmed.",
+            icon: "success",
+          });
+        }
+      })
+      .catch((err) => console.error("Update error:", err));
+  };
 
-
-
-// delete 
+  // delete
   const hancleDelete = (_id) => {
     console.log(_id);
     Swal.fire({
@@ -75,7 +75,7 @@ const User = () => {
               icon: "success",
             });
             // remove from ui
-            const remaining = bookings.filter(booking => booking._id !== _id);
+            const remaining = bookings.filter((booking) => booking._id !== _id);
             setBookings(remaining);
           }
         });
@@ -121,11 +121,11 @@ const User = () => {
                 <td className="border px-2 md:px-4 py-2">{booking.date}</td>
                 <td className="border px-2 md:px-4 py-2">{booking.number}</td>
                 <td className="border px-2 md:px-4 py-2 space-y-1 md:space-y-0 md:space-x-2 flex flex-col md:flex-row justify-center items-center">
-                  <button 
-                  onClick={()=>handleupdate(booking._id)}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-2 md:px-3 py-1 rounded w-full md:w-auto">
-                    Update
-                  </button>
+                  <Link to={`/updatecart/${booking._id}`}>
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white px-2 md:px-3 py-1 rounded w-full md:w-auto">
+                      UPDATE
+                    </button>
+                  </Link>
                   <button
                     onClick={() => hancleDelete(booking._id)}
                     className="bg-red-500 hover:bg-red-600 text-white px-2 md:px-3 py-1 rounded w-full md:w-auto"

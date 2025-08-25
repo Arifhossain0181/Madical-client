@@ -10,14 +10,13 @@ import axios from "axios";
 import Axios from "../../Hook/Axios";
 
 const Section2serverID = () => {
-  
   const { id } = useParams();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const axiossecure = Axios()
+  const axiossecure = Axios();
 
   // modal state
   const [selectedService, setSelectedService] = useState(null);
@@ -43,21 +42,20 @@ const Section2serverID = () => {
       phone: form.phone.value,
       email: form.email.value,
     };
-    if(user && user?.email  ){
-      //todo 
-     const mucartitem = {
-       serviceId: selectedService._id || selectedService.id,  // use _id to match backend
-       price: selectedService.price,
-       email: user?.email,
-       name: selectedService.service,
-       bookslot:form.time.value,// service name/title
-       phone : form.phone.value,
-       date: form.date.value,
-     };
-        axiossecure.post('/mycart',mucartitem )
-      .then(res => {
-        console.log(res.data)
-        if(res.data.insertedId){
+    if (user && user?.email) {
+      //todo
+      const mucartitem = {
+        serviceId: selectedService._id || selectedService.id, // use _id to match backend
+        price: selectedService.price,
+        email: user?.email,
+        name: selectedService.service,
+        bookslot: form.time.value, // service name/title
+        phone: form.phone.value,
+        date: form.date.value,
+      };
+      axiossecure.post("/mycart", mucartitem).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
           Swal.fire({
             title: "Appointment Booked Successfully",
             showClass: {
@@ -75,31 +73,30 @@ const Section2serverID = () => {
         `,
             },
           });
-          setSelectedService(null); 
-          navigate('/user')// close modal after submit
+          setSelectedService(null);
+          navigate("/user"); // close modal after submit
         }
-      })
-    }
-    else{
+      });
+    } else {
       Swal.fire({
-  title: "You are not logged in",
-  text: "Please log in to book an appointment.",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, take me to login!",
-}).then((result) => {
-  if (result.isConfirmed) {
-   //send to the login Page
-   navigate('/login' ,{state: {from:location}})
-  }
-});
+        title: "You are not logged in",
+        text: "Please log in to book an appointment.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, take me to login!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          //send to the login Page
+          navigate("/login", { state: { from: location } });
+        }
+      });
     }
-     
+
     //console.log("Booking Data:", bookingData ,user?.email);
     //alert("Appointment submitted!");
-    //setSelectedService(null); 
+    //setSelectedService(null);
     //navigate('/user')// close modal after submit
   };
 
@@ -165,64 +162,59 @@ const Section2serverID = () => {
 
             {/* Appointment Form */}
             {/* Appointment Form */}
-<form onSubmit={handleSubmit} className="space-y-3">
-  {/* ✅ Current Date Auto Select */}
-  <input
-    type="date"
-    name="date"
-    defaultValue={new Date().toISOString().split("T")[0]} // আজকের তারিখ
-    className="w-full border p-2 rounded"
-    required
-  />
+            <form onSubmit={handleSubmit} className="space-y-3">
+              {/* ✅ Current Date Auto Select */}
+              <input
+                type="date"
+                name="date"
+                defaultValue={new Date().toISOString().split("T")[0]} // আজকের তারিখ
+                className="w-full border p-2 rounded"
+                required
+              />
 
-  {/* ✅ Available Slots Dropdown */}
-  <select
-    name="time"
-    className="w-full border p-2 rounded"
-    required
-  >
-    <option value="">Select Time Slot</option>
-    {selectedService.availableSlots?.map((slot, index) => (
-      <option key={index} value={slot}>
-        {slot}
-      </option>
-    ))}
-  </select>
+              {/* ✅ Available Slots Dropdown */}
+              <select
+                name="time"
+                className="w-full border p-2 rounded"
+                required
+              >
+                <option value="">Select Time Slot</option>
+                {selectedService.availableSlots?.map((slot, index) => (
+                  <option key={index} value={slot}>
+                    {slot}
+                  </option>
+                ))}
+              </select>
 
-  <input
-    type="text"
-    name="name"
-    placeholder="Full Name"
-    className="w-full border p-2 rounded"
-    required
-  />
-  <input
-    type="text"
-    name="phone"
-    placeholder="Phone Number"
-    className="w-full border p-2 rounded"
-    required
-  />
-  <input
-    type="email"
-    name="email"
-    placeholder="Email"
-    className="w-full border p-2 rounded"
-    required
-  />
-  <div>
-    
-  </div>
-  <button
-  
-    type="submit"
-    className="w-full bg-green-800 text-white py-2 rounded"
-  >
-    
-       Submit
-  </button>
-</form>
-
+              <input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                className="w-full border p-2 rounded"
+                required
+              />
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                className="w-full border p-2 rounded"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className="w-full border p-2 rounded"
+                required
+              />
+              <div></div>
+              <button
+                type="submit"
+                className="w-full bg-green-800 text-white py-2 rounded"
+              >
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       )}

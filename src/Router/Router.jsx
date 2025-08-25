@@ -13,6 +13,7 @@ import APPointment from '../Pages/APPointment/APPointment.jsx';
 import Dashboard from '../Dashboard/Dashboard.jsx';
 import User from '../../src/Pages/APPointment/User.jsx'
 import Section2serverID from '../Pages/APPointment/Section2serverID.jsx';
+import UPdatecart from '../Pages/APPointment/UPdatecart.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
         },{
           path:'/user',
           element:<Privateroutes><User></User></Privateroutes>
+        },
+        {
+          path:'/updatecart/:id',
+          element:<Privateroutes><UPdatecart></UPdatecart></Privateroutes>,
+          loader:({params})=>fetch(`http://localhost:5000/mycart/${params.id}`)
         }
     ]
   },
