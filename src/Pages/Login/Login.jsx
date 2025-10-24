@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 const Login = () => {
   const [disabled, setDisabled] = useState(true); // Start with disabled
-  const { signIn } = useContext(AuthContext);
+  const { signIn ,  googleSignIn} = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/"; // Redirect after login
@@ -39,6 +39,20 @@ const Login = () => {
       .catch((error) => {
         console.error("Login failed:", error);
         alert("Login failed: " + error.message);
+      });
+  };
+  // google sign in handler
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+        alert("Google Sign-In Successful!");
+        navigate(from, { replace: true }); // Navigate to the previous page or home
+      })
+      .catch((error) => {
+        console.error("Google Sign-In failed:", error);
+        alert("Google Sign-In failed: " + error.message);
       });
   };
 
@@ -118,7 +132,18 @@ const Login = () => {
             >
               Login
             </button>
+
+            {/* Google Sign-In Button */}
+            <button
+              type="button"
+              onClick={handleGoogleSignIn}
+              className="btn w-full bg-amber-600 border-0 mt-4"
+            >
+              Login with Google
+            </button>
           </form>
+        
+          
 
           {/* Register link */}
           <p className="text-center mt-4">
@@ -130,6 +155,7 @@ const Login = () => {
               Register
             </Link>
           </p>
+          
         </div>
       </div>
     </div>

@@ -5,7 +5,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile // added
+  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "firebase/auth";
 import app from "../firebase/firebse.config.js";
 
@@ -37,6 +39,15 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+  // google sign in
+  const   googleSignIn = ()=>{
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  
+  }
+
+
   // Add uPdateuser to update displayName
   const uPdateuser = (name) => {
     if (!auth.currentUser) return Promise.reject("No user");
@@ -44,6 +55,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const authInfo = {
+     googleSignIn ,
     user,
     createUser,
     signIn,

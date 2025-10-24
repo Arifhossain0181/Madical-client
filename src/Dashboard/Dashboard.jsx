@@ -1,115 +1,110 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../Pages/Shared/Navbar/Navbar";
+import React from "react";
+import { Link, Outlet } from "react-router-dom";
+import { 
+  FaHome, 
+  FaClipboardList, 
+  FaUserMd, 
+  FaCheckCircle, 
+  FaTimesCircle, 
+  FaHistory, 
+  FaHospital 
+} from "react-icons/fa";
 
 const Dashboard = () => {
-  const [activePage, setActivePage] = useState("welcome");
-
   return (
-    <div className="min-h-screen flex flex-col text-black">
-      {/* Navbar */}
-      <div className="bg-emerald-950 p-5 h-20 flex items-center justify-between">
-        <Navbar />
-      </div>
-
-      <div className="flex flex-1">
-        {/* Sidebar */}
-        <div className="bg-gray-100 w-64 p-5 space-y-4">
-          <ul className="space-y-3">
-            <li>
-              <button
-                onClick={() => setActivePage("addDoctor")}
-                className="block w-full text-left p-2 rounded hover:bg-emerald-200"
-              >
-                Add A Doctor
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setActivePage("allUsers")}
-                className="block w-full text-left p-2 rounded hover:bg-emerald-200"
-              >
-                All Users
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setActivePage("manageDoctors")}
-                className="block w-full text-left p-2 rounded hover:bg-emerald-200"
-              >
-                Manage Doctors
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => setActivePage("welcome")}
-                className="block w-full text-left p-2 rounded hover:bg-emerald-200"
-              >
-                Dashboard Home
-              </button>
-            </li>
-            <li>
-              <Link
-                to="/"
-                className="block w-full text-left p-2 rounded hover:bg-emerald-200"
-              >
-                Home
-              </Link>
-            </li>
-          </ul>
+    <div>
+      <div className="drawer drawer-open">
+        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+        
+        {/* Main content */}
+        <div className="drawer-content p-6">
+          <Outlet /> {/* Renders child routes */}
         </div>
 
-        {/* Right Side Content */}
-        <div className="flex-1 bg-gray-50 p-5">
-          {activePage === "welcome" && (
-            <h2 className="text-3xl font-bold text-center mt-10">
-              Welcome to Dashboard
-            </h2>
-          )}
+        {/* Sidebar */}
+        <div className="drawer-side is-drawer-close:overflow-visible">
+          <label
+            htmlFor="my-drawer-4"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
 
-          {activePage === "addDoctor" && (
-            <div>
-              <h2 className="text-2xl font-bold mb-5">Add a New Doctor</h2>
-              <form className="space-y-4 max-w-md">
-                <input
-                  type="text"
-                  placeholder="Enter Your Name"
-                  className="w-full border p-2 rounded"
-                />
-                <input
-                  type="email"
-                  placeholder="Enter Your Email"
-                  className="w-full border p-2 rounded"
-                />
-                <select className="w-full border p-2 rounded">
-                  <option>Teeth Orthodontics</option>
-                  <option>Cardiology</option>
-                  <option>Neurology</option>
-                </select>
-                <input type="file" className="w-full border p-2 rounded" />
-                <button
-                  type="submit"
-                  className="bg-emerald-600 text-white px-4 py-2 rounded"
+          <div className="is-drawer-close:w-14 is-drawer-open:w-64 bg-base-200 flex flex-col items-start min-h-full">
+            {/* Sidebar content */}
+            <ul className="menu w-full grow p-2">
+              <li>
+                <Link
+                  to="/"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  Add
-                </button>
-              </form>
-            </div>
-          )}
+                  <FaHome /> <span className="is-drawer-close:hidden">Homepage</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/booking"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
+                >
+                  <FaClipboardList /> <span className="is-drawer-close:hidden">Booking</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/appointmentlist"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
+                >
+                  <FaClipboardList /> <span className="is-drawer-close:hidden">Appointment List</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/rejectlist"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-red-500 hover:text-white"
+                >
+                  <FaTimesCircle /> <span className="is-drawer-close:hidden">Reject List</span>
+                </Link>
+              </li>
+              
+              <li>
+                <Link
+                  to="/dashboard/approvelist"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-green-500 hover:text-white"
+                >
+                  <FaCheckCircle /> <span className="is-drawer-close:hidden">Approve List</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/history"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
+                >
+                  <FaHistory /> <span className="is-drawer-close:hidden">History</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/managedoctor"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
+                >
+                  <FaHospital /> <span className="is-drawer-close:hidden">Manage Doctor</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/appointment"
+                  className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
+                >
+                  <FaClipboardList /> <span className="is-drawer-close:hidden">Appointment</span>
+                </Link>
+              </li>
+            </ul>
 
-          {activePage === "manageDoctors" && (
-            <div>
-              <h2 className="text-2xl font-bold mb-5">Manage Doctors</h2>
-              <p>Here will be the list of doctors...</p>
-            </div>
-          )}
-
-          {activePage === "allUsers" && (
-            <div>
-              <h2 className="text-2xl font-bold mb-5">All Users</h2>
-              <p>Here will be the list of all users...</p>
-            </div>
-          )}
+            {/* Drawer toggle button */}
+            <div
+              className="m-2 is-drawer-close:tooltip is-drawer-close:tooltip-right"
+              data-tip="Open"
+            ></div>
+          </div>
         </div>
       </div>
     </div>

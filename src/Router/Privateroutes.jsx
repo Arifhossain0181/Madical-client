@@ -8,7 +8,9 @@ const Privateroutes = ({children}) => {
     const location = useLocation()
 
     if(loading){
-        return <Navigate to='/' replace/>; // redirect to home if loading
+        return <div className="flex justify-center items-center min-h-screen">
+            <span className="loading loading-spinner loading-lg"></span>
+        </div>; // show loading spinner instead of redirecting
     }
     if(user) return children; // return children if user is authenticated
     return <Navigate to='/login' state={{from: location} } replace/>; // redirect to login if not authenticated
