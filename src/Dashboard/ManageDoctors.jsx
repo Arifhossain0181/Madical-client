@@ -78,6 +78,8 @@ const ManageDoctors = () => {
               <th className="px-2 py-2 md:px-4 md:py-3 hidden sm:table-cell">
                 Email
               </th>
+              <th className="px-2 py-2 md:px-4 md:py-3">Education</th>
+              <th className="px-2 py-2 md:px-4 md:py-3">Available Time</th>
               <th className="px-2 py-2 md:px-4 md:py-3">License</th>
               <th className="px-2 py-2 md:px-4 md:py-3">ID Proof</th>
               <th className="px-2 py-2 md:px-4 md:py-3">Photo</th>
@@ -89,7 +91,7 @@ const ManageDoctors = () => {
           <tbody>
             {doctors.length === 0 && (
               <tr>
-                <td colSpan={9} className="text-center py-6 text-gray-600">
+                <td colSpan={11} className="text-center py-6 text-gray-600">
                   No doctors found.
                 </td>
               </tr>
@@ -105,6 +107,16 @@ const ManageDoctors = () => {
                 <td className="px-2 py-1 md:px-4 md:py-2">{doctor.specialization}</td>
                 <td className="px-2 py-1 md:px-4 md:py-2 hidden sm:table-cell">
                   {doctor.email}
+                </td>
+
+                {/* Education */}
+                <td className="px-2 py-1 md:px-4 md:py-2">
+                  <span className="text-sm">{doctor.education || "N/A"}</span>
+                </td>
+
+                {/* Available Time */}
+                <td className="px-2 py-1 md:px-4 md:py-2">
+                  <span className="text-sm">{doctor.available_time || "N/A"}</span>
                 </td>
 
                 {/* License */}

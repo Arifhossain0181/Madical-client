@@ -5,8 +5,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
-import axiossecure from "../../Hook/Axios";
-import axios from "axios";
 import Axios from "../../Hook/Axios";
 
 const Section2serverID = () => {
@@ -25,9 +23,24 @@ const Section2serverID = () => {
     fetch("http://localhost:5000/service")
       .then((res) => res.json())
       .then((data) => {
-        const filtered = data.filter((item) => item.category === id);
-        setServices(filtered);
+        if (Array.isArray(data)) {
+          const filtered = data.filter((item) => item.category === id);
+          setServices(filtered);
+        } else {
+          setServices([]);
+        }
         setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching services:", error);
+        setServices([]);
+        setLoading(false);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to load services. Please try again.",
+          icon: "error",
+          confirmButtonColor: "#EF4444",
+        });
       });
   }, [id]);
 
@@ -58,6 +71,7 @@ const Section2serverID = () => {
         if (res.data.insertedId) {
           Swal.fire({
             title: "Appointment Booked Successfully",
+            icon: "success",
             showClass: {
               popup: `
           animate__animated
@@ -76,6 +90,14 @@ const Section2serverID = () => {
           setSelectedService(null);
           navigate("/user"); // close modal after submit
         }
+      }).catch((error) => {
+        console.error("Error booking appointment:", error);
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to book appointment. Please try again.",
+          icon: "error",
+          confirmButtonColor: "#EF4444",
+        });
       });
     } else {
       Swal.fire({
@@ -107,8 +129,13 @@ const Section2serverID = () => {
       <h1 className="text-3xl font-bold text-center mb-6">
         Services in "{id}" Category
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {services.map((service) => (
+      {services.length === 0 ? (
+        <p className="text-center text-gray-600 mt-10">
+          No services available in this category.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {services.map((service) => (
           <div
             key={service.id}
             className="bg-white text-black shadow-md p-6 rounded-lg hover:shadow-xl transition"
@@ -123,7 +150,7 @@ const Section2serverID = () => {
             <div className="text-lg font-bold mb-2">${service.price}</div>
             <div className="text-sm text-gray-700 mb-2">
               Available Slots:{" "}
-              {service.availableSlots
+              {service.availableSlots && Array.isArray(service.availableSlots)
                 ? service.availableSlots.join(", ")
                 : "None"}
             </div>
@@ -138,6 +165,7 @@ const Section2serverID = () => {
           </div>
         ))}
       </div>
+      )}
 
       {/* Modal */}
       {selectedService && (
@@ -179,11 +207,13 @@ const Section2serverID = () => {
                 required
               >
                 <option value="">Select Time Slot</option>
-                {selectedService.availableSlots?.map((slot, index) => (
-                  <option key={index} value={slot}>
-                    {slot}
-                  </option>
-                ))}
+                {selectedService.availableSlots && Array.isArray(selectedService.availableSlots) && 
+                  selectedService.availableSlots.map((slot, index) => (
+                    <option key={index} value={slot}>
+                      {slot}
+                    </option>
+                  ))
+                }
               </select>
 
               <input

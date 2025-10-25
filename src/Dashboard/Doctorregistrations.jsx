@@ -96,6 +96,8 @@ const DoctorRegistrations = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input {...register("specialization")} placeholder="Specialization" required className="input input-bordered w-full" />
           <input {...register("experience")} type="number" placeholder="Years of Experience" className="input input-bordered w-full" />
+          <input {...register("education")} placeholder="Education (e.g., MBBS, MD)" required className="input input-bordered w-full" />
+          <input {...register("available_time")} placeholder="Available Time (e.g., Tue–Sat, 10:00–14:00)" required className="input input-bordered w-full" />
           <input {...register("hospital")} placeholder="Hospital / Clinic" className="input input-bordered w-full" />
           <input {...register("consultationFee")} type="number" placeholder="Consultation Fee" className="input input-bordered w-full" />
         </div>

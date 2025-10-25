@@ -12,9 +12,9 @@ const Section1 = () => {
       .then(data => {
         setServices(data);
 
-        // ✅ ইউনিক ক্যাটেগরি বের করা
+        // Get unique categories
         const uniqueCategories = [...new Set(data.map(item => item.category))];
-        setCategories(uniqueCategories.slice(0, 6)); // শুধু ৬টা ক্যাটেগরি নেব
+        setCategories(uniqueCategories.slice(0, 6)); // Just take 6 categories
       });
   }, []);
 
