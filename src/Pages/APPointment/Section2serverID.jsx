@@ -1,255 +1,284 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
-import { useLocation } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import Axios from "../../Hook/Axios";
 
-const Section2serverID = () => {
-  const { id } = useParams();
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+const axiosSecure = Axios();
+
+const fetchDoctors = async (specialization) => {
+  const res = await axiosSecure.get("/register-doctors-approved");
+  const data = res.data;
+  if (!Array.isArray(data)) return [];
+  return data.filter(
+    (doc) => doc.specialization.toLowerCase() === specialization.toLowerCase()
+  );
+};
+
+const Section2ServerID = () => {
+  const { id } = useParams(); // specialization
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const axiossecure = Axios();
 
-  // modal state
-  const [selectedService, setSelectedService] = useState(null);
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/service")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          const filtered = data.filter((item) => item.category === id);
-          setServices(filtered);
-        } else {
-          setServices([]);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching services:", error);
-        setServices([]);
-        setLoading(false);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to load services. Please try again.",
-          icon: "error",
-          confirmButtonColor: "#EF4444",
-        });
-      });
-  }, [id]);
+  const { data: doctors = [], isLoading, isError } = useQuery({
+    queryKey: ["approvedDoctors", id],
+    queryFn: () => fetchDoctors(id),
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
+  });
 
-  const handleSubmit = (e) => {
+  const handleBooking = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const bookingData = {
-      service: selectedService.service,
-      date: form.date.value,
-      time: form.time.value,
-      name: form.name.value,
-      phone: form.phone.value,
-      email: form.email.value,
-    };
-    if (user && user?.email) {
-      //todo
-      const mucartitem = {
-        serviceId: selectedService._id || selectedService.id, // use _id to match backend
-        price: selectedService.price,
-        email: user?.email,
-        name: selectedService.service,
-        bookslot: form.time.value, // service name/title
-        phone: form.phone.value,
-        date: form.date.value,
-      };
-      axiossecure.post("/mycart", mucartitem).then((res) => {
-        console.log(res.data);
-        if (res.data.insertedId) {
-          Swal.fire({
-            title: "Appointment Booked Successfully",
-            icon: "success",
-            showClass: {
-              popup: `
-          animate__animated
-          animate__fadeInUp
-          animate__faster
-        `,
-            },
-            hideClass: {
-              popup: `
-          animate__animated
-          animate__fadeOutDown
-          animate__faster
-        `,
-            },
-          });
-          setSelectedService(null);
-          navigate("/user"); // close modal after submit
-        }
-      }).catch((error) => {
-        console.error("Error booking appointment:", error);
-        Swal.fire({
-          title: "Error!",
-          text: "Failed to book appointment. Please try again.",
-          icon: "error",
-          confirmButtonColor: "#EF4444",
-        });
-      });
-    } else {
+    
+    if (!user) {
       Swal.fire({
-        title: "You are not logged in",
-        text: "Please log in to book an appointment.",
+        title: "Please login first",
+        text: "You need to login to book an appointment.",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, take me to login!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          //send to the login Page
+        confirmButtonText: "Go to Login",
+      }).then((res) => {
+        if (res.isConfirmed) {
           navigate("/login", { state: { from: location } });
         }
       });
+      return;
     }
 
-    //console.log("Booking Data:", bookingData ,user?.email);
-    //alert("Appointment submitted!");
-    //setSelectedService(null);
-    //navigate('/user')// close modal after submit
+    const booking = {
+      serviceId: selectedDoctor._id,
+      doctorId: selectedDoctor._id,
+      price: selectedDoctor.consultationFee,
+      email: user.email,
+      name: selectedDoctor.fullName,
+      bookslot: form.time.value || selectedDoctor.available_time,
+      phone: form.phone.value,
+      date: form.date.value,
+      patientName: form.name.value,
+      patientEmail: form.email.value,
+      specialization: selectedDoctor.specialization,
+      hospital: selectedDoctor.hospital,
+      status: "pending"
+    };
+
+    console.log("Booking data:", booking); // Debug log
+
+    // Show loading
+    Swal.fire({
+      title: 'Booking...',
+      text: 'Please wait',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    try {
+      const res = await axiosSecure.post("/mycart", booking);
+      console.log("Backend response:", res.data); // Debug log
+      
+      if (res.data.insertedId || res.data.acknowledged) {
+        Swal.fire({
+          title: "Appointment Confirmed!",
+          text: `Your appointment with Dr. ${selectedDoctor.fullName} is booked.`,
+          icon: "success",
+          confirmButtonColor: "#10B981",
+        });
+        setSelectedDoctor(null);
+        navigate("/user");
+      } else {
+        Swal.fire({
+          title: "Success",
+          text: "Appointment booked successfully!",
+          icon: "success",
+          confirmButtonColor: "#10B981",
+        });
+        setSelectedDoctor(null);
+        navigate("/user");
+      }
+    } catch (err) {
+      console.error("Booking error:", err); // Debug log
+      console.error("Error response:", err.response?.data); // Debug log
+      
+      const errorMessage = err.response?.data?.message || err.message || "Failed to book appointment. Please try again.";
+      
+      Swal.fire({
+        title: "Error",
+        text: errorMessage,
+        icon: "error",
+        confirmButtonColor: "#EF4444",
+      });
+    }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading)
+    return <p className="text-center mt-10 text-gray-500">Loading doctors...</p>;
+  if (isError)
+    return (
+      <p className="text-center mt-10 text-red-500">
+        Failed to load doctors list.
+      </p>
+    );
 
   return (
-    <div className="max-w-5xl mx-auto mt-10 text-black text-center font-bold">
-      <h1 className="text-3xl font-bold text-center mb-6">
-        Services in "{id}" Category
+    <div className="max-w-6xl mx-auto px-4 py-10 text-black">
+      <h1 className="text-3xl font-bold text-center mb-8 capitalize">
+        Doctors in “{id}” Specialization
       </h1>
-      {services.length === 0 ? (
-        <p className="text-center text-gray-600 mt-10">
-          No services available in this category.
-        </p>
+
+      {doctors.length === 0 ? (
+        <p className="text-center text-gray-600">No approved doctors found.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((service) => (
-          <div
-            key={service.id}
-            className="bg-white text-black shadow-md p-6 rounded-lg hover:shadow-xl transition"
-          >
-            <h3>{service.category}</h3>
-            <h2 className="text-xl font-semibold mb-2">{service.service}</h2>
-            <img
-              src={service.img}
-              alt={service.service}
-              className="w-20 h-20 object-contain mb-2 mx-auto"
-            />
-            <div className="text-lg font-bold mb-2">${service.price}</div>
-            <div className="text-sm text-gray-700 mb-2">
-              Available Slots:{" "}
-              {service.availableSlots && Array.isArray(service.availableSlots)
-                ? service.availableSlots.join(", ")
-                : "None"}
-            </div>
-            <div className="mt-4">
-              <button
-                onClick={() => setSelectedService(service)}
-                className="btn btn-active hover:bg-amber-600 border-0"
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {doctors.map((doc, i) => (
+            <motion.div
+              key={doc._id || i}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              whileHover={{ scale: 1.03 }}
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl p-5 text-center"
+            >
+              <img
+                src={
+                  doc.files?.profilePhoto?.[0]?.path
+                    ? `http://localhost:5000/${doc.files.profilePhoto[0].path}`
+                    : "https://via.placeholder.com/120"
+                }
+                alt={doc.fullName}
+                className="w-24 h-24 mx-auto rounded-full border mb-3 object-cover"
+              />
+              <h2 className="text-lg font-bold">{doc.fullName}</h2>
+              <p className="text-sm text-gray-600 mb-1">{doc.education}</p>
+              <p className="text-sm text-gray-600 mb-1">
+                {doc.hospital || "N/A"}
+              </p>
+              <p className="text-sm text-gray-600">
+                <b>Available:</b> {doc.available_time}
+              </p>
+              <p className="text-sm text-gray-600 mb-2">
+                Fee: ৳{doc.consultationFee}
+              </p>
+
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setSelectedDoctor(doc)}
+                className="mt-2 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition"
               >
                 Book Appointment
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-      )}
-
-      {/* Modal */}
-      {selectedService && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          {/* ✅ Background blur */}
-          <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setSelectedService(null)} // background ক্লিক করলে modal close হবে
-          ></div>
-
-          {/* ✅ Modal */}
-          <div className="bg-white p-6 rounded-lg w-96 relative z-10">
-            <button
-              className="absolute top-2 right-2 text-gray-600"
-              onClick={() => setSelectedService(null)} // modal close button
-            >
-              ✖
-            </button>
-            <h2 className="text-xl font-bold mb-4">
-              {selectedService.service}
-            </h2>
-
-            {/* Appointment Form */}
-            {/* Appointment Form */}
-            <form onSubmit={handleSubmit} className="space-y-3">
-              {/* ✅ Current Date Auto Select */}
-              <input
-                type="date"
-                name="date"
-                defaultValue={new Date().toISOString().split("T")[0]} // আজকের তারিখ
-                className="w-full border p-2 rounded"
-                required
-              />
-
-              {/* ✅ Available Slots Dropdown */}
-              <select
-                name="time"
-                className="w-full border p-2 rounded"
-                required
-              >
-                <option value="">Select Time Slot</option>
-                {selectedService.availableSlots && Array.isArray(selectedService.availableSlots) && 
-                  selectedService.availableSlots.map((slot, index) => (
-                    <option key={index} value={slot}>
-                      {slot}
-                    </option>
-                  ))
-                }
-              </select>
-
-              <input
-                type="text"
-                name="name"
-                placeholder="Full Name"
-                className="w-full border p-2 rounded"
-                required
-              />
-              <input
-                type="text"
-                name="phone"
-                placeholder="Phone Number"
-                className="w-full border p-2 rounded"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                className="w-full border p-2 rounded"
-                required
-              />
-              <div></div>
-              <button
-                type="submit"
-                className="w-full bg-green-800 text-white py-2 rounded"
-              >
-                Submit
-              </button>
-            </form>
-          </div>
+              </motion.button>
+            </motion.div>
+          ))}
         </div>
       )}
+
+      {/*  Modal for Booking */}
+      <AnimatePresence>
+  {selectedDoctor && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      onClick={() => setSelectedDoctor(null)}
+    >
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.8, opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white w-96 rounded-lg p-6 shadow-lg relative"
+      >
+        <button
+          className="absolute top-2 right-3 text-gray-500 hover:text-black"
+          onClick={() => setSelectedDoctor(null)}
+        >
+          ✖
+        </button>
+        <h2 className="text-xl font-bold mb-2 text-center">
+          Dr. {selectedDoctor.fullName}
+        </h2>
+        <p className="text-center text-sm text-gray-600 mb-4">
+          {selectedDoctor.specialization} • {selectedDoctor.hospital}
+        </p>
+
+        <form onSubmit={handleBooking} className="space-y-3">
+          {/* Date selection */}
+          <input
+            type="date"
+            name="date"
+            defaultValue={new Date().toISOString().split("T")[0]}
+            className="w-full border p-2 rounded"
+            required
+          />
+
+          {/* Time selection dropdown */}
+          <select
+            name="time"
+            className="w-full border p-2 rounded"
+            required
+          >
+            <option value="">Select Time Slot</option>
+            {selectedDoctor.available_time && selectedDoctor.available_time.split(',').length > 0 ? (
+              selectedDoctor.available_time.split(',').map((slot, i) => (
+                <option key={i} value={slot.trim()}>
+                  {slot.trim()}
+                </option>
+              ))
+            ) : (
+              <option value={selectedDoctor.available_time || "N/A"}>
+                {selectedDoctor.available_time || "N/A"}
+              </option>
+            )}
+          </select>
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            className="w-full border p-2 rounded"
+            required
+          />
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone Number"
+            className="w-full border p-2 rounded"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="w-full border p-2 rounded"
+            required
+          />
+
+          {/* Serial number display */}
+          <p className="text-gray-600 text-sm">
+            Serial: {selectedDoctor.nextSerial || 1}
+          </p>
+
+          <button
+            type="submit"
+            className="w-full bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition"
+          >
+            Confirm Appointment
+          </button>
+        </form>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
     </div>
   );
 };
 
-export default Section2serverID;
+export default Section2ServerID;
