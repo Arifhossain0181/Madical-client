@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { 
-  FaHome, 
-  FaClipboardList, 
-  FaUserMd, 
-  FaCheckCircle, 
-  FaTimesCircle, 
-  FaHistory, 
-  FaHospital 
+import {
+  FaHome,
+  FaClipboardList,
+  FaUserMd,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaHistory,
+  FaHospital,
 } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -15,7 +15,7 @@ const Dashboard = () => {
     <div>
       <div className="drawer drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        
+
         {/* Main content */}
         <div className="drawer-content p-6">
           <Outlet /> {/* Renders child routes */}
@@ -37,7 +37,8 @@ const Dashboard = () => {
                   to="/"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaHome /> <span className="is-drawer-close:hidden">Homepage</span>
+                  <FaHome />{" "}
+                  <span className="is-drawer-close:hidden">Homepage</span>
                 </Link>
               </li>
               <li>
@@ -45,7 +46,8 @@ const Dashboard = () => {
                   to="/dashboard/booking"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaClipboardList /> <span className="is-drawer-close:hidden">Booking</span>
+                  <FaClipboardList />{" "}
+                  <span className="is-drawer-close:hidden">Booking</span>
                 </Link>
               </li>
               <li>
@@ -53,7 +55,10 @@ const Dashboard = () => {
                   to="/dashboard/appointmentlist"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaClipboardList /> <span className="is-drawer-close:hidden">Appointment List</span>
+                  <FaClipboardList />{" "}
+                  <span className="is-drawer-close:hidden">
+                    Appointment List
+                  </span>
                 </Link>
               </li>
               <li>
@@ -61,16 +66,18 @@ const Dashboard = () => {
                   to="/dashboard/rejectlist"
                   className="flex items-center gap-2 p-2 rounded hover:bg-red-500 hover:text-white"
                 >
-                  <FaTimesCircle /> <span className="is-drawer-close:hidden">Reject List</span>
+                  <FaTimesCircle />{" "}
+                  <span className="is-drawer-close:hidden">Reject List</span>
                 </Link>
               </li>
-              
+
               <li>
                 <Link
                   to="/dashboard/approvelist"
                   className="flex items-center gap-2 p-2 rounded hover:bg-green-500 hover:text-white"
                 >
-                  <FaCheckCircle /> <span className="is-drawer-close:hidden">Approve List</span>
+                  <FaCheckCircle />{" "}
+                  <span className="is-drawer-close:hidden">Approve List</span>
                 </Link>
               </li>
               <li>
@@ -78,7 +85,8 @@ const Dashboard = () => {
                   to="/dashboard/history"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaHistory /> <span className="is-drawer-close:hidden">History</span>
+                  <FaHistory />{" "}
+                  <span className="is-drawer-close:hidden">History</span>
                 </Link>
               </li>
               <li>
@@ -86,7 +94,8 @@ const Dashboard = () => {
                   to="/dashboard/managedoctor"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaHospital /> <span className="is-drawer-close:hidden">Manage Doctor</span>
+                  <FaHospital />{" "}
+                  <span className="is-drawer-close:hidden">Manage Doctor</span>
                 </Link>
               </li>
               <li>
@@ -94,7 +103,8 @@ const Dashboard = () => {
                   to="/dashboard/appointment"
                   className="flex items-center gap-2 p-2 rounded hover:bg-amber-500 hover:text-white"
                 >
-                  <FaClipboardList /> <span className="is-drawer-close:hidden">Appointment</span>
+                  <FaClipboardList />{" "}
+                  <span className="is-drawer-close:hidden">Appointment</span>
                 </Link>
               </li>
             </ul>

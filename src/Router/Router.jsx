@@ -21,7 +21,7 @@ import Rejectlist from "../Dashboard/Rejectlist.jsx";
 import Doctorregistrations from "../Dashboard/Doctorregistrations.jsx";
 import APProvelist from "../Dashboard/APProvelist.jsx";
 import History from "../Dashboard/History.jsx";
-
+import About from "../../src/Layout/About.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,12 +40,13 @@ const router = createBrowserRouter([
         ),
       },
       { path: "/appointment", element: <APPointment /> },
+      { path: "/about", element: <About/> },
       { path: "/services/:id", element: <Section2serverID /> },
       {
         path: "/user",
         element: (
           <Privateroutes>
-            <User />
+            
           </Privateroutes>
         ),
       },
@@ -74,8 +75,8 @@ const router = createBrowserRouter([
       </Privateroutes>
     ), // Protect the dashboard
     children: [
-      { path: "user", element: <User /> },
-      { path: "booking", element: <Booing /> },
+     
+      { path: "booking", element:<User /> },
       { path: "appointmentlist", element: <APPointmentlist /> },
       { path: "rejectlist", element: <Rejectlist /> },
      
